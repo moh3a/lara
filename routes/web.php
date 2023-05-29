@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Listing;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,25 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// fetch all listings
 Route::get('/', function () {
     return view('listings', [
         "heading" => "Latest Listings",
-        "listings" => [
-            [
-                "id" => 1,
-                "title" => "Listing one",
-                "description" => "description of listing one"
-            ],
-            [
-                "id" => 2,
-                "title" => "Listing two",
-                "description" => "description of listing two"
-            ],
-            [
-                "id" => 3,
-                "title" => "Listing three",
-                "description" => "description of listing three"
-            ]
-        ]
+        "listings" => Listing::all()
+    ]);
+});
+
+// fetch listing by id
+Route::get('/listings/{id}', function ($id) {
+    return view('listing', [
+        "listing" => Listing::find($id)
     ]);
 });
